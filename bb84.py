@@ -14,6 +14,11 @@ def bb84_simulation(key_length):
     print(f"Shared Key: {shared_key}")
     return shared_key
 
+def simulate_eavesdropping(alice_bits, alice_bases, key_length):
+    eve_bases = np.random.randint(2, size=key_length)
+    intercepted_bits = np.where(alice_bases == eve_bases, alice_bits, np.random.randint(2, size=key_length))
+    return intercepted_bits
+
 if __name__ == "__main__":
     key_length = 10
     print("Protocol BB84 Simulation")
