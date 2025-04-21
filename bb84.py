@@ -5,10 +5,18 @@ def generate_quantum_key(length):
     bases = np.random.randint(2, size=length)
     return bits, bases
 
-def bb84_simulation(key_length):
+def bb84_simulation(key_length, eavesdropping=False):
     alice_bits, alice_bases = generate_quantum_key(key_length)
     bob_bases = np.random.randint(2, size=key_length)
     bob_bits = np.where(alice_bases == bob_bases, alice_bits, np.random.randint(2, size=key_length))
+    
+    if eavesdropping:
+        eve_bits = simulate_eavesdropping(alice_bits, alice_bases, key_length)
+        print(f"Eve's intercepted bits: {eve_bits}")
+    
+    shared_key = alice_bits[alice_bases == bob_bases]
+    print(f"Chave compartilhada: {shared_key}")
+    return shared_key
     
     shared_key = alice_bits[alice_bases == bob_bases]
     print(f"Shared Key: {shared_key}")
