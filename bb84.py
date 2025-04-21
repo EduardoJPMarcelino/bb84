@@ -27,6 +27,11 @@ def simulate_eavesdropping(alice_bits, alice_bases, key_length):
     intercepted_bits = np.where(alice_bases == eve_bases, alice_bits, np.random.randint(2, size=key_length))
     return intercepted_bits
 
+def check_for_eavesdropping(alice_key, bob_key, sample_size):
+    sample_indices = np.random.choice(len(alice_key), sample_size, replace=False)
+    errors = np.sum(alice_key[sample_indices] != bob_key[sample_indices])
+    return errors > 0
+
 if __name__ == "__main__":
     key_length = 10
     print("Protocol BB84 Simulation")
