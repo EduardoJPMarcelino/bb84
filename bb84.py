@@ -43,7 +43,7 @@ def bb84_simulation(key_length, eavesdropping=False):
         else:
             logging.info("No eavesdropping detected.")
     
-    print(f"Chave compartilhada: {shared_key}")
+    print(f"Shared key: {shared_key} (length: {len(shared_key)})")
     return shared_key
 
 if __name__ == "__main__":
