@@ -1,4 +1,3 @@
-# test_bb84.py
 import pytest
 import numpy as np
 from bb84 import generate_quantum_key, simulate_eavesdropping, check_for_eavesdropping, bb84_simulation
@@ -25,15 +24,15 @@ def test_simulate_eavesdropping(key_length):
 
 def test_check_for_eavesdropping_no_errors():
     alice_key = np.array([0, 1, 0, 1])
-    bob_key = np.array([0, 1, 0, 1]) 
+    bob_key = np.array([0, 1, 0, 1])
     sample_size = 2
     result = check_for_eavesdropping(alice_key, bob_key, sample_size)
     assert result == False, "Should not detect eavesdropping when keys match"
 
 def test_check_for_eavesdropping_with_errors():
     alice_key = np.array([0, 1, 0, 1])
-    bob_key = np.array([0, 1, 1, 1])  
-    sample_size = 2
+    bob_key = np.array([0, 1, 1, 1])
+    sample_size = len(alice_key)  # Comparar toda a chave para garantir detecção
     result = check_for_eavesdropping(alice_key, bob_key, sample_size)
     assert result == True, "Should detect eavesdropping when keys differ"
 
