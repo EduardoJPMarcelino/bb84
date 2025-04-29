@@ -16,8 +16,12 @@ def test_generate_quantum_key(key_length):
 
 def test_simulate_eavesdropping(key_length):
     alice_bits, alice_bases = generate_quantum_key(key_length)
-    intercepted_bits = simulate_eavesdropping(alice_bits, alice_bases, key_length)
+    intercepted_bits, eve_bases = simulate_eavesdropping(alice_bits, alice_bases, key_length)
     assert len(intercepted_bits) == key_length, f"Expected {key_length} intercepted bits, got {len(intercepted_bits)}"
+    matching_bases = alice_bases == eve_bases
+    for i in range(key_length):
+        if matching_bases[i]:
+            assert intercepted_bits[i] == alice_bits[i], f"Intercepted bit {intercepted_bits[i]} should match Alice's bit {alice_bits[i]} at index {i}"
 
 def test_check_for_eavesdropping_no_errors():
     alice_key = np.array([0, 1, 0, 1])
