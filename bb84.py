@@ -1,6 +1,6 @@
 import numpy as np
 import logging
-print()
+
 logging.basicConfig(filename='bb84_simulation.log', level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
