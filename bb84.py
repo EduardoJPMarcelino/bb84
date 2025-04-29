@@ -14,7 +14,7 @@ def simulate_eavesdropping(alice_bits, alice_bases, key_length):
     eve_bases = np.random.randint(2, size=key_length)
     intercepted_bits = np.where(alice_bases == eve_bases, alice_bits, np.random.randint(2, size=key_length))
     logging.info(f"Eve intercepted: bases={eve_bases.tolist()}, bits={intercepted_bits.tolist()}")
-    return intercepted_bits
+    return intercepted_bits, eve_bases 
 
 def check_for_eavesdropping(alice_key, bob_key, sample_size):
     sample_indices = np.random.choice(len(alice_key), sample_size, replace=False)
